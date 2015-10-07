@@ -1,0 +1,28 @@
+#!/bin/bash
+
+
+N_ELS=100
+T_OUT=30
+W_Q=50
+
+make clean_all;
+make test_d;
+
+for N_TH in 1 2; do
+	for N_PTX in 20 30; do
+		for DEL in 1000 5000; do
+			for ORD in 0 1 2; do
+				for CR in 1 2; do
+					for CD in 1 2 3 4; do
+						./test_d ${CD} ${CR} ${N_TH} ${N_ELS} ${N_PTX} ${W_Q} ${DEL} ${ORD} ${T_OUT} test_${N_TH}_${N_PTX}_${DEL}.out  ;
+					done;
+				done;
+			done;
+		done;
+	done;
+done;
+
+
+
+
+

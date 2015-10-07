@@ -1,0 +1,19 @@
+GCC = gcc
+GPP = g++
+LINK = g++
+CPP  = cpp
+
+#the program I am currently working on
+all: qs
+
+
+qs:
+	$(GPP) qs.cc -g -o qs -lpthread -lm
+
+
+#
+clean:
+	rm qs
+
+
+rebuild:	clean	all 

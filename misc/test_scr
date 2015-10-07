@@ -1,0 +1,51 @@
+#!/bin/bash
+
+
+N_ELS=1024
+N_ITER=1000000
+
+for D1 in COMMITS_ONLY ABORTS_ONLY ; do
+	for D2 in DISABLE_NOTHING DISABLE_LOCKS DISABLE_MGR DISABLE_ALL ; do
+		make clean_all;
+		make test_c_tm DEF1=${D1} DEF2=${D2} ;
+		for W_Q in 100; do
+			for (( i=0; i<3; i++ )); do
+				./test_c_tm 1 1 1 ${N_ELS} 1000 ${W_Q} ${N_ITER}   test_${D1}_${D2}_1_${N_ELS}_1000_${W_Q}.out  ;
+				./test_c_tm 1 2 1 ${N_ELS} 1000 ${W_Q} ${N_ITER}   test_${D1}_${D2}_1_${N_ELS}_1000_${W_Q}.out  ;
+				./test_c_tm 1 3 1 ${N_ELS} 1000 ${W_Q} ${N_ITER}   test_${D1}_${D2}_1_${N_ELS}_1000_${W_Q}.out  ;
+				./test_c_tm 2 1 1 ${N_ELS} 1000 ${W_Q} ${N_ITER}   test_${D1}_${D2}_1_${N_ELS}_1000_${W_Q}.out  ;
+				./test_c_tm 2 2 1 ${N_ELS} 1000 ${W_Q} ${N_ITER}   test_${D1}_${D2}_1_${N_ELS}_1000_${W_Q}.out  ;
+				./test_c_tm 2 3 1 ${N_ELS} 1000 ${W_Q} ${N_ITER}   test_${D1}_${D2}_1_${N_ELS}_1000_${W_Q}.out  ;
+				./test_c_tm 3 2 1 ${N_ELS} 1000 ${W_Q} ${N_ITER}   test_${D1}_${D2}_1_${N_ELS}_1000_${W_Q}.out  ;
+				./test_c_tm 3 3 1 ${N_ELS} 1000 ${W_Q} ${N_ITER}   test_${D1}_${D2}_1_${N_ELS}_1000_${W_Q}.out  ;
+				./test_c_tm 4 3 1 ${N_ELS} 1000 ${W_Q} ${N_ITER}   test_${D1}_${D2}_1_${N_ELS}_1000_${W_Q}.out  ;
+			done;
+		done;
+	done;
+done;
+
+
+#N_ELS=102400
+#N_ITER=500000
+
+#for D1 in COMMITS_ONLY ABORTS_ONLY ; do
+#	for D2 in DISABLE_NOTHING DISABLE_LOCKS DISABLE_MGR DISABLE_ALL ; do
+#		make clean_all;
+#		make test_c_tm DEF1=${D1} DEF2=${D2} ;
+#		for W_Q in 0 100; do
+#			for (( i=0; i<3; i++ )); do
+#				./test_c_tm 1 1 1 ${N_ELS} 1000 ${W_Q} ${N_ITER}   test_${D1}_${D2}_1_${N_ELS}_1000_${W_Q}.out  ;
+#				./test_c_tm 1 2 1 ${N_ELS} 1000 ${W_Q} ${N_ITER}   test_${D1}_${D2}_1_${N_ELS}_1000_${W_Q}.out  ;
+#				./test_c_tm 1 3 1 ${N_ELS} 1000 ${W_Q} ${N_ITER}   test_${D1}_${D2}_1_${N_ELS}_1000_${W_Q}.out  ;
+#				./test_c_tm 2 1 1 ${N_ELS} 1000 ${W_Q} ${N_ITER}   test_${D1}_${D2}_1_${N_ELS}_1000_${W_Q}.out  ;
+#				./test_c_tm 2 2 1 ${N_ELS} 1000 ${W_Q} ${N_ITER}   test_${D1}_${D2}_1_${N_ELS}_1000_${W_Q}.out  ;
+#				./test_c_tm 2 3 1 ${N_ELS} 1000 ${W_Q} ${N_ITER}   test_${D1}_${D2}_1_${N_ELS}_1000_${W_Q}.out  ;
+#				./test_c_tm 3 2 1 ${N_ELS} 1000 ${W_Q} ${N_ITER}   test_${D1}_${D2}_1_${N_ELS}_1000_${W_Q}.out  ;
+#				./test_c_tm 3 3 1 ${N_ELS} 1000 ${W_Q} ${N_ITER}   test_${D1}_${D2}_1_${N_ELS}_1000_${W_Q}.out  ;
+#				./test_c_tm 4 3 1 ${N_ELS} 1000 ${W_Q} ${N_ITER}   test_${D1}_${D2}_1_${N_ELS}_1000_${W_Q}.out  ;
+#			done;
+#		done;
+#	done;
+#done;
+
+

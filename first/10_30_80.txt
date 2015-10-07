@@ -1,0 +1,43 @@
+
+ 1: Time in TXs: 10.848581
+
+ 0: Time in TXs: 11.285212
+
+ 3: Time in TXs: 11.935809
+
+ 2: Time in TXs: 12.191131
+
+
+
+============= TM STATS ===============
+
+------------- Transactions ---------------
+thread #,started,hw,hybrid_hw,hybrid_sw,sw
+0,12500000,12185197,296652,0,18151
+1,12500000,12232501,165742,0,101757
+2,12500000,12006996,446748,0,46256
+3,12500000,12290120,180067,0,29813
+total,50000000,48714814,1089209,0,195977
+
+
+------------- HW Transactions ---------------
+total_hw_attempt,commit,abort_conflicts,abort_others
+50000000,48714814,1222756,62430
+
+
+------------- Hybrid_HW Transactions ---------------
+total_hybrid_hw_attempt,commit,abort_conflicts,abort_invalidations,abort_others
+1281148,1089209,170289,0,21650
+
+
+------------- Hybrid_SW Transactions ---------------
+total_hybrid_sw_attempt,commit,abort_invalidation
+
+0,0,0
+
+
+------------- SW Serialized ---------------
+total_sw_attempt,commit
+
+195977,195977
+

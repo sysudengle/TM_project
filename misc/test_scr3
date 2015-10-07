@@ -1,0 +1,25 @@
+#!/bin/bash
+
+
+N_ELS=102400
+T_OUT=30
+
+make clean_all;
+make test_c_tm;
+
+
+for N_TH in 4 ; do
+	for W_Q in 0 10 20 30 40 50 60 70 80 90 100; do
+		for N_PER_TX in 100 750 1500; do
+			for DELAY in 0 1000 10000; do
+				for (( i=0; i<1; i++ )); do
+					./test_c_tm 1 2 ${N_TH} ${N_ELS} ${N_PER_TX} ${W_Q} ${DELAY} ${T_OUT}   test_${N_TH}_${N_ELS}.out  ;
+					./test_c_tm 3 2 ${N_TH} ${N_ELS} ${N_PER_TX} ${W_Q} ${DELAY} ${T_OUT}   test_${N_TH}_${N_ELS}.out  ;
+					./test_c_tm 4 3 ${N_TH} ${N_ELS} ${N_PER_TX} ${W_Q} ${DELAY} ${T_OUT}   test_${N_TH}_${N_ELS}.out  ;
+				done;
+			done;
+		done;
+	done;
+done;
+
+

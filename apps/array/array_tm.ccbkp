@@ -1,0 +1,70 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include "../../src/tm.h"
+TM_INIT();  //initialize the TM system
+
+
+tm_int * array;
+
+
+int main()
+{
+        int size = 10000;
+        array=new tm_int [size];
+        int temp, temp1, temp2, temp3;
+
+        srand(time(NULL));
+
+        ver_t *tag_array = new ver_t[size];
+
+        //surprisingly, it segfaults if you don't
+        //create a version tag array yourself.
+
+        //seems like no version object is
+        //automatically initialized!!
+        for(int i=0; i<size; i++)
+                array[i].__meta = &tag_array[0];
+
+        for(int i=0; i<size; i++)
+        {
+
+                //all transactions must commitdue to 
+                //massive parallelism
+                //BEGIN_TRANSACTION();
+                //array[i]=rand()%100+1;
+		array[i]=i;
+                //END_TRANSACTION();
+        }
+
+
+        for(int i=5; i<size; i++)
+        {
+
+                //all transactions must commitdue to 
+                //massive parallelism
+                BEGIN_TRANSACTION();
+                array[i]=array[i-1]+4;
+                END_TRANSACTION();
+        }
+
+        TM_END();
+
+        //temp = rand()%10; //generate a random index
+                           //to confuse the compiler
+
+        temp = 234;
+	temp1 = array[temp];
+        temp2 = array[temp+1];
+        temp3 = array[temp+2];
+
+        //printing one element to 
+        printf("The elements are:%d,%d,%d\n",temp1,temp2,temp3);
+
+
+        //freeing created memory
+        delete [] array;
+        delete [] tag_array;
+
+        return 1;
+}

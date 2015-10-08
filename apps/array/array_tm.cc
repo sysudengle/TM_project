@@ -22,9 +22,9 @@ int N_THREADS;		                // No of threads accessing the array in parallel
 unsigned int WR_PERCENTAGE;        		    // Percentage of write accesses from the total amount of accesses
 bool random_access = false;               // Default: random accesses
 int N_ACCESS;         // No. of elements to access per transaction
-int MAX_RETRIES;
+int MAX_RETRIES;	  // Max retry no.
 
-unsigned int TAG_GRAN;
+unsigned int TAG_GRAN;	// ??
 unsigned int TAG_MODE;
 
 
@@ -40,7 +40,7 @@ TM_INIT();                                // initialize the TM system (creating 
 //Mutex tm_mutex;                        
 
 #ifdef PTHREAD_FINE
-pthread_mutex_t *mutex_array;
+pthread_mutex_t *mutex_array;			// ??
 #elif PTHREAD_COARSE
 pthread_mutex_t mutex_array = PTHREAD_MUTEX_INITIALIZER;
 #endif
@@ -124,7 +124,7 @@ int do_tm_work ( void* arg, int id ) {
 #endif
 
   for (k = 0; k < N_ITER/N_THREADS; k++) {
-    base = RAND() % (N_ACCESS * 9);
+    base = RAND() % 10 * N_ACCESS;
 
 #ifdef TM
     BEGIN_TRANSACTION();
@@ -140,7 +140,7 @@ int do_tm_work ( void* arg, int id ) {
       main_array[-j] = temp; 
     }
     */
-    for (i = 0, j = index_array[base + i]; i < N_ACCESS; j = index_array[++i]) {
+    for (i = 0, j = index_array[base + i]; i < N_ACCESS; j = index_array[base + (++i)]) {
       if (j > 0) {
         temp = main_array[j]; // read access, temp is a throwaway variable 
       }
